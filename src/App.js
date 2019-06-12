@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import "./App.css";
 import ListOfUsers from "./components/listOfUsers";
-import UserProfile from "./components/userProfile";
+import UserProfile from "./components/UserProfile";
 import NotFound from "./components/notFound";
 
 function App() {
