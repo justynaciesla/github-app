@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.title {
+  text-align: center;
+  color: grey;
+}

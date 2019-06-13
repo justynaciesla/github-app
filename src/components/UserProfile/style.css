@@ -1,0 +1,58 @@
+#profile_main_container {
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  margin-left: 100px;
+  margin-top: 30px;
+}
+
+.profile_column1 {
+  flex-grow: 0;
+  width: 25%;
+  margin-right: 100px;
+}
+
+.img2 {
+  height: 260px;
+  width: 260px;
+  border: 14px solid #41b794;
+}
+
+.profile_name {
+  color: "grey";
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 280;
+}
+
+.profile_login {
+  color: "black";
+  margin-top: 0;
+  width: 280;
+}
+
+.profile_inf {
+  color: "black";
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.follow_btn {
+  width: 288px;
+  height: 34px;
+  color: white;
+  background-color: #4ca8d7;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.follow_btn:focus {
+  outline: none;
+}
+
+.profile_column2 {
+  flex-grow: 2;
+  width: 75%;
+}

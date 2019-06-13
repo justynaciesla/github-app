@@ -1,0 +1,50 @@
+.repository_container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  display: block;
+  width: 100%;
+  margin-left: -50px;
+}
+
+.repository_title {
+  color: #4ca8d7;
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+.repository_description {
+  color: grey;
+  margin-top: 0px;
+}
+
+.repository_language {
+  color: grey;
+  display: inline;
+  margin-right: 30px;
+}
+
+.repository_ikons {
+  color: grey;
+  margin-right: 3px;
+}
+
+.repository_for_ikons {
+  display: inline;
+  color: grey;
+  margin-right: 30px;
+}
+
+.repository_updated {
+  color: grey;
+  display: inline;
+}
+
+.language_dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}

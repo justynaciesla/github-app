@@ -1,5 +1,6 @@
 import React from "react";
-import FollowerBox from "./FollowerBox";
+import FollowerBox from "../FollowerBox";
+import "./styles.css";
 
 const Followers = ({ followers }) => {
   return (
