@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import RepositoriesBox from "../RepositoriesBox/index.jsx";
 import Pagination from "../Pagination";
+import linkHeaderParser from "parse-link-header";
 import "./style.css";
+
+let pages = {};
 
 const fetchRepositories = async (setIsLoading, setRepositories, username) => {
   setIsLoading(true);
   console.log(username);
   const data = await fetch(`https://api.github.com/users/${username}/repos`);
+  pages = linkHeaderParser(data.headers.get("Link"));
   const dataJson = await data.json();
   setIsLoading(false);
   setRepositories(dataJson);
@@ -19,6 +23,8 @@ const Repositories = ({ username }) => {
   useEffect(() => {
     fetchRepositories(setIsLoading, setRepositories, username);
   }, []);
+
+  console.log("pages... ", pages);
 
   return (
     <React.Fragment>
@@ -38,9 +44,10 @@ const Repositories = ({ username }) => {
         ))}
       </div>
       <Pagination
+        pages={pages}
         setIsLoading={setIsLoading}
         setData={setRepositories}
-        nextLink="/users/user/1/repos?page=2"
+        nextLink="https://api.github.com/user/2/repos?page=2"
       />
     </React.Fragment>
   );
