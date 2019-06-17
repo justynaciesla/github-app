@@ -6,6 +6,7 @@
   background-color: #41b794;
   color: white;
   font-weight: bold;
+  font-size: 18;
 }
 
 .pagination_button:focus {

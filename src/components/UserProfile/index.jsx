@@ -10,14 +10,6 @@ const fetchUser = async ({ setIsLoading, setData, username }) => {
   setData(user);
 };
 
-const fetchFollowers = async ({ setFollowers, username }) => {
-  const responseFollowers = await fetch(
-    `https://api.github.com/users/${username}/followers`
-  );
-  const followers = await responseFollowers.json();
-  setFollowers(followers);
-};
-
 const handleClick = ({ event, followText, setFollowText }) => {
   event.preventDefault();
   const newFollowText = followText === "Follow" ? "UnFollow" : "Follow";
@@ -33,13 +25,11 @@ const UserProfile = ({ match }) => {
   useEffect(() => {
     const username = match.params.username;
     fetchUser({ setIsLoading, setData, username });
-    fetchFollowers({ setFollowers, username });
   }, [match.params.username]);
 
   if (isLoading) return <h1> Loading.....</h1>;
   return (
     <div id="profile_main_container">
-      Testing
       <div className="profile_column1">
         <img className="img2" src={data.avatar_url} alt="user_photo" />
         <h1 className="profile_name">{data.name}</h1>

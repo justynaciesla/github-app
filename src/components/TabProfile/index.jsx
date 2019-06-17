@@ -40,7 +40,7 @@ const TabProfile = ({
         <Repositories username={username} />
       </TabPanel>
       <TabPanel>
-        <Followers followers={followers} />
+        <Followers username={username} />
       </TabPanel>
       <TabPanel>
         <h2>Following</h2>

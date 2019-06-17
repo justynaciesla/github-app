@@ -6,22 +6,22 @@ import "./style.css";
 
 let pages = {};
 
-const fetchRepositories = async (setIsLoading, setRepositories, username) => {
-  setIsLoading(true);
-  console.log(username);
-  const data = await fetch(`https://api.github.com/users/${username}/repos`);
-  pages = linkHeaderParser(data.headers.get("Link"));
-  const dataJson = await data.json();
-  setIsLoading(false);
-  setRepositories(dataJson);
-};
-
 const Repositories = ({ username }) => {
   const [repositories, setRepositories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const fetchRepositories = async url => {
+    setIsLoading(true);
+    console.log(username);
+    const data = await fetch(url);
+    pages = linkHeaderParser(data.headers.get("Link"));
+    const dataJson = await data.json();
+    setIsLoading(false);
+    setRepositories(dataJson);
+  };
+
   useEffect(() => {
-    fetchRepositories(setIsLoading, setRepositories, username);
+    fetchRepositories(`https://api.github.com/users/${username}/repos`);
   }, []);
 
   console.log("pages... ", pages);
@@ -44,10 +44,10 @@ const Repositories = ({ username }) => {
         ))}
       </div>
       <Pagination
+        fetchRepositories={fetchRepositories}
         pages={pages}
         setIsLoading={setIsLoading}
         setData={setRepositories}
-        nextLink="https://api.github.com/user/2/repos?page=2"
       />
     </React.Fragment>
   );
