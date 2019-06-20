@@ -3,6 +3,7 @@ import UserCard from "../UserCard";
 import SearchBox from "../SearchBox";
 import PaginationListUsers from "../PaginationListUsers";
 import linkHeaderParser from "parse-link-header";
+import { get } from "lodash";
 import "./style.css";
 
 const ListUsers = () => {
@@ -12,15 +13,36 @@ const ListUsers = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [pages, setPages] = useState({});
 
-  // didMount -> []
-  // WillUnmount -> [id]
-  // DidUpdate -> return, []
-  const fetchUsers = async url => {
-    if (url === "https://api.github.com/users{?since}") {
-      url = "https://api.github.com/users?since=1&per_page=18";
+  const fetchUserUrl = "https://api.github.com/users?since";
+
+  const changeValueParamsNext = () => {
+    window.history.pushState(
+      pages.next.since,
+      "next page",
+      `users?since=${pages.next.since}`
+    );
+  };
+
+  const changeValueParamsFirst = () => {
+    if (pages.first.since === undefined) {
+      pages.first.since = 1;
     }
+    window.history.pushState(
+      pages.first.since,
+      "first page",
+      `users?since=${pages.first.since}`
+    );
+  };
+
+  const changeValueParamsPrev = () => {
+    window.history.back();
+    console.log(window.history);
+  };
+
+  const fetchUsers = async url => {
+    let since = new URLSearchParams(new URL(url).search).get("since");
     setIsLoading(true);
-    const data = await fetch(url);
+    const data = await fetch(`${fetchUserUrl}=${since}`);
     if (data.status >= 400) {
       setHasError(true);
     }
@@ -31,11 +53,28 @@ const ListUsers = () => {
     setPages(linkHeaderParser(data.headers.get("Link")));
   };
 
-  useEffect(() => {
-    fetchUsers(`https://api.github.com/users?since=1&per_page=18`);
-  }, []);
+  const nextPage = url => {
+    changeValueParamsNext();
+    fetchUsers(url);
+  };
 
-  console.log("pages users", pages);
+  const firstPage = url => {
+    changeValueParamsFirst();
+    fetchUsers(url);
+  };
+
+  const prevPage = url => {
+    changeValueParamsPrev();
+    fetchUsers(url);
+  };
+
+  useEffect(() => {
+    /*  const since = new URLSearchParams(new URL(window.location.href).search).get(
+      "since"
+    ); */
+    fetchUsers(window.location.href);
+    // window.location = window.location.hrerf + '?page=1';
+  }, []);
 
   return (
     <React.Fragment>
@@ -56,10 +95,10 @@ const ListUsers = () => {
           ))}
       </div>
       <PaginationListUsers
-        fetchData={fetchUsers}
         pages={pages}
-        setIsLoading={setIsLoading}
-        setData={setUsers}
+        nextPage={nextPage}
+        firstPage={firstPage}
+        prevPage={prevPage}
       />
     </React.Fragment>
   );

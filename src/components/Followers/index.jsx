@@ -19,7 +19,9 @@ const Followers = ({ username }) => {
   };
 
   useEffect(() => {
-    fetchFollowers(`https://api.github.com/users/${username}/followers`);
+    fetchFollowers(
+      `https://api.github.com/users/${username}/followers?page=1&per_page=10`
+    );
   }, []);
 
   console.log("pages followers... ", pages);
@@ -35,12 +37,14 @@ const Followers = ({ username }) => {
           avatar={follower.avatar_url}
         />
       ))}
-      <Pagination
-        fetchData={fetchFollowers}
-        pages={pages}
-        setIsLoading={setIsLoading}
-        setData={setFollowers}
-      />
+      <div style={{ float: "right", marginLeft: "700px" }}>
+        <Pagination
+          fetchData={fetchFollowers}
+          pages={pages}
+          setIsLoading={setIsLoading}
+          setData={setFollowers}
+        />
+      </div>
     </div>
   );
 };

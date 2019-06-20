@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import RepositoriesBox from "../RepositoriesBox/index.jsx";
 import Pagination from "../Pagination";
+import Pagination2 from "../Pagination2";
 import linkHeaderParser from "parse-link-header";
 import "./style.css";
-
-let pages = {};
 
 const Repositories = ({ username }) => {
   const [repositories, setRepositories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [pages, setPages] = useState({});
 
   const fetchRepositories = async url => {
     setIsLoading(true);
-    console.log(username);
     const data = await fetch(url);
-    pages = linkHeaderParser(data.headers.get("Link"));
+    setPages(linkHeaderParser(data.headers.get("Link")));
+    console.log("pages", pages);
     const dataJson = await data.json();
     setIsLoading(false);
     setRepositories(dataJson);
@@ -24,11 +24,9 @@ const Repositories = ({ username }) => {
     fetchRepositories(`https://api.github.com/users/${username}/repos`);
   }, []);
 
-  console.log("pages... ", pages);
-
   return (
     <React.Fragment>
-      {isLoading && "Loading...."}
+      {isLoading && "Is loading..."}
       <div className="container">
         {repositories.map(repositorie => (
           <RepositoriesBox
@@ -43,12 +41,15 @@ const Repositories = ({ username }) => {
           />
         ))}
       </div>
-      <Pagination
-        fetchRepositories={fetchRepositories}
-        pages={pages}
-        setIsLoading={setIsLoading}
-        setData={setRepositories}
-      />
+      <div style={{ float: "right", marginRight: "80px" }}>
+        <Pagination
+          fetchData={fetchRepositories}
+          pages={pages}
+          setIsLoading={setIsLoading}
+          setData={setRepositories}
+        />
+      </div>
+      {/* <Pagination2 fetchData={fetchRepositories} pages={pages} /> */}
     </React.Fragment>
   );
 };

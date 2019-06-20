@@ -14,7 +14,7 @@ function App() {
           <Route path="/users" component={ListOfUsers} />
           <Route path="/not-found" component={NotFound} />
           <Redirect from="/" exact to="/users" />
-          <Redirect to="/not-found" />
+          {/* <Redirect to="/not-found" /> */}
         </Switch>
       </main>
     </React.Fragment>
