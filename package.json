@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "font-awesome": "^4.7.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "parse-link-header": "^1.0.1",
     "react": "^16.8.6",
     "react-datalist-input": "^1.0.4",
